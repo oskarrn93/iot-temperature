@@ -15,5 +15,23 @@ services:
     ports: 
       - "8086:8086"
 
+  mosquitto:
+    image: "eclipse-mosquitto:2.0.15"
+    restart: unless-stopped
+    container_name: mosquitto
+    env_file:
+      - .env
+    volumes:
+      - type: volume
+        source: mosquitto_data
+        target: /mosquitto
+        volume:
+          nocopy: true
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    ports: 
+      - "1883:1883"
+      - "9001:9001"
+
 volumes:
   influxdb_data:
+  mosquitto_data:
