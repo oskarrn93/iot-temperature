@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  influxdb:
+    image: "influxdb:2.6.1-alpine"
+    restart: unless-stopped
+    container_name: influxdb
+    env_file:
+      - .env
+    volumes:
+      - type: volume
+        source: influxdb_data
+        target: /root/.influxdbv2
+        volume:
+          nocopy: true
+    ports: 
+      - "8086:8086"
+
+volumes:
+  influxdb_data:
